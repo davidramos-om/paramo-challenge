@@ -38,7 +38,7 @@ namespace Sat.Recruitment.Api.Controllers.Users
         [HttpPost()]
         [ProducesResponseType(typeof(UserDto), 200)]
         [ProducesResponseType(typeof(ProblemDetails), 400)]
-        public ActionResult Create([FromBody] RegisterUserDto model)
+        public ActionResult RegisterUser([FromBody] RegisterUserDto model)
         {
             if (!ModelState.IsValid)
             {
