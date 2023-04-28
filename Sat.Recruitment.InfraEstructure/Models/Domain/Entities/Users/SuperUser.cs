@@ -1,8 +1,7 @@
 ﻿using Sat.Recruitment.Common;
-using Sat.Recruitment.Core.Abstract;
-using Sat.Recruitment.Core.Interfaces;
+using Sat.Recruitment.InfraEstructure.Models.Domain.Interfaces;
 
-namespace Sat.Recruitment.Core.Entities
+namespace Sat.Recruitment.InfraEstructure.Models.Domain.Entities.Users
 {
     public sealed class SuperUser : User, IUserGif
     {

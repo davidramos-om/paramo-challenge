@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Sat.Recruitment.Common;
 
-namespace Sat.Recruitment.Api.Core.DTOs
+namespace Sat.Recruitment.InfraEstructure.Models.DTOs
 {
     public interface IRegisterUser
     {

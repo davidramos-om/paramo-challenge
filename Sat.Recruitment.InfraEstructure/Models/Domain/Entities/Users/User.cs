@@ -1,7 +1,7 @@
 ﻿using Sat.Recruitment.Common;
-using Sat.Recruitment.Core.Interfaces;
+using Sat.Recruitment.InfraEstructure.Models.Domain.Interfaces;
 
-namespace Sat.Recruitment.Core.Abstract
+namespace Sat.Recruitment.InfraEstructure.Models.Domain.Entities.Users
 {
     public class User : IUser
     {
@@ -22,6 +22,6 @@ namespace Sat.Recruitment.Core.Abstract
             Phone = phone;
             Money = money;
             UserType = userType;
-        }         
+        }
     }
 }

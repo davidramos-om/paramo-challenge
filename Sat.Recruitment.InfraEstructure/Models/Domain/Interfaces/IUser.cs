@@ -1,6 +1,6 @@
 ﻿using Sat.Recruitment.Common;
 
-namespace Sat.Recruitment.Core.Interfaces
+namespace Sat.Recruitment.InfraEstructure.Models.Domain.Interfaces
 {
     public interface IUser
     {

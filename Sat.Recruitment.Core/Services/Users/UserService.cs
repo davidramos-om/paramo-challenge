@@ -1,13 +1,11 @@
 ﻿using System.Text;
 using AutoMapper;
-using Sat.Recruitment.Api.Core.DTOs;
 using Sat.Recruitment.Common;
-using Sat.Recruitment.Core.Abstract;
-using Sat.Recruitment.Core.Entities;
-using Sat.Recruitment.Core.Interfaces;
 using Sat.Recruitment.InfraEstructure.DataContext;
+using Sat.Recruitment.InfraEstructure.Models.Domain.Entities.Users;
+using Sat.Recruitment.InfraEstructure.Models.DTOs;
 
-namespace Sat.Recruitment.Api.Services.Users
+namespace Sat.Recruitment.Core.Services.Users
 {
     public class UserService : IUserService
     {
@@ -20,9 +18,9 @@ namespace Sat.Recruitment.Api.Services.Users
             _userRepository = userRepository;
         }
 
-        public async Task<List<UserDto>> GetAll()
+        public List<UserDto> GetAll()
         {
-            var users = await _userRepository.GetAll();
+            var users = _userRepository.GetAll();
             List<UserDto> dtos = new();
 
             foreach (var user in users)
@@ -34,9 +32,9 @@ namespace Sat.Recruitment.Api.Services.Users
             return dtos;
         }
 
-        public async Task<UserDto?> FindByEmail(string email)
+        public UserDto? FindByEmail(string email)
         {
-            var user = await _userRepository.FindByEmail(email);
+            var user = _userRepository.FindByEmail(email);
             if (user == null)
                 return null;
 
@@ -44,7 +42,7 @@ namespace Sat.Recruitment.Api.Services.Users
             return transformed;
         }
 
-        public async Task<UserDto> RegisterUser(RegisterUserDto userRegistration)
+        public UserDto RegisterUser(RegisterUserDto userRegistration)
         {
             // Get required fields defined in the DTO (due to DataAnnotation valid only for HTTP Requests)
             Dictionary<string, string> requiredFields = ClassValidator.GetRequiredFields<RegisterUserDto>();
@@ -68,20 +66,20 @@ namespace Sat.Recruitment.Api.Services.Users
                 }
             }
 
-            if (!StringSanitizer.IsValidEmail(userRegistration.Email))
+            if (!userRegistration.Email.IsValidEmail())
                 throw new AppExceptionHandler("Invalid email");
 
-            userRegistration.Email = StringSanitizer.NormalizeEmail(userRegistration.Email);
+            userRegistration.Email = userRegistration.Email.NormalizeEmail();
 
-            var existing = await _userRepository.FindByEmail(userRegistration.Email);
+            var existing = _userRepository.FindByEmail(userRegistration.Email);
             if (existing != null)
                 throw new AppExceptionHandler("Email already registered.");
 
-            existing = await _userRepository.FindByPhone(userRegistration.Phone);
+            existing = _userRepository.FindByPhone(userRegistration.Phone);
             if (existing != null)
                 throw new AppExceptionHandler("Phone number already used by someone else.");
 
-            existing = await _userRepository.FindBy(userRegistration.Name, userRegistration.Address);
+            existing = _userRepository.FindBy(userRegistration.Name, userRegistration.Address);
             if (existing != null)
                 throw new AppExceptionHandler("Already exists a user using the name and address entered.");
 
@@ -103,12 +101,12 @@ namespace Sat.Recruitment.Api.Services.Users
             if (newUser == null)
                 throw new AppExceptionHandler("User type not supported");
 
-            var saved = await _userRepository.Create(newUser);
+            var saved = _userRepository.Create(newUser);
             var savedDto = _mapper.Map<UserDto>(saved);
 
             savedDto.UserId = newUser.Id.ToString();
 
-            return await Task.FromResult(savedDto);
+            return savedDto;
         }
     }
 }

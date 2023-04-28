@@ -1,6 +1,6 @@
 ﻿using Sat.Recruitment.Common;
 
-namespace Sat.Recruitment.Api.Core.DTOs
+namespace Sat.Recruitment.InfraEstructure.Models.DTOs
 {
     public sealed class UserDto : IRegisterUser
     {
