@@ -1,5 +1,4 @@
-using Sat.Recruitment.Api.Services.Users;
-using Sat.Recruitment.Core.Interfaces;
+using Sat.Recruitment.Core.Services.Users;
 using Sat.Recruitment.InfraEstructure.DataContext;
 
 var builder = WebApplication.CreateBuilder(args);

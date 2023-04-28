@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Sat.Recruitment.Api.Core.DTOs;
-using Sat.Recruitment.Core.Abstract; 
+using Sat.Recruitment.InfraEstructure.Models.Domain.Entities.Users;
+using Sat.Recruitment.InfraEstructure.Models.DTOs;
 
 namespace Sat.Recruitment.Core.Mapper
 {

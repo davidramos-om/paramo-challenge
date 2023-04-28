@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sat.Recruitment.Common\Sat.Recruitment.Common.csproj" />
+    <ProjectReference Include="..\Sat.Recruitment.InfraEstructure\Sat.Recruitment.InfraEstructure.csproj" />
   </ItemGroup>
 
 </Project>
