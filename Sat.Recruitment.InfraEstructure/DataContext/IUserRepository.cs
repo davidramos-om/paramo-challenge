@@ -1,13 +1,13 @@
-﻿using Sat.Recruitment.Core.Abstract;
+﻿using Sat.Recruitment.InfraEstructure.Models.Domain.Entities.Users;
 
 namespace Sat.Recruitment.InfraEstructure.DataContext
 {
     public interface IUserRepository
     {
-        Task<User> Create(User user);
-        Task<List<User>> GetAll();
-        Task<User?> FindByEmail(string email);
-        Task<User?> FindByPhone(string phone);
-        Task<User?> FindBy(string name, string address);
+        User Create(User user);
+        List<User> GetAll();
+        User? FindByEmail(string email);
+        User? FindByPhone(string phone);
+        User? FindBy(string name, string address);
     }
 }

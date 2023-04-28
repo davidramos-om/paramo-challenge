@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sat.Recruitment.Api.Core.DTOs;
 using Sat.Recruitment.Common;
-using Sat.Recruitment.Core.Interfaces;
+using Sat.Recruitment.Core.Services.Users;
+using Sat.Recruitment.InfraEstructure.Models.DTOs;
 
 namespace Sat.Recruitment.Api.Controllers.Users
 {
@@ -17,18 +17,18 @@ namespace Sat.Recruitment.Api.Controllers.Users
         [HttpGet()]
         [ProducesResponseType(typeof(List<UserDto>), 200)]
         [ProducesResponseType(typeof(ProblemDetails), 400)]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var result = await _userService.GetAll();
+            var result = _userService.GetAll();
             return Ok(result);
         }
 
         [HttpGet("email")]
         [ProducesResponseType(typeof(UserDto), 200)]
         [ProducesResponseType(typeof(ProblemDetails), 400)]
-        public async Task<IActionResult> GetByEmail([FromQuery] string email)
+        public IActionResult GetByEmail([FromQuery] string email)
         {
-            var result = await _userService.FindByEmail(email);
+            var result = _userService.FindByEmail(email);
             if (result == null)
                 return NotFound("User not found");
 
@@ -38,7 +38,7 @@ namespace Sat.Recruitment.Api.Controllers.Users
         [HttpPost()]
         [ProducesResponseType(typeof(UserDto), 200)]
         [ProducesResponseType(typeof(ProblemDetails), 400)]
-        public async Task<ActionResult> Create([FromBody] RegisterUserDto model)
+        public ActionResult Create([FromBody] RegisterUserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace Sat.Recruitment.Api.Controllers.Users
 
             try
             {
-                var item = await _userService.RegisterUser(model);
+                var item = _userService.RegisterUser(model);
                 return Ok(item);
             }
             catch (Exception ex)

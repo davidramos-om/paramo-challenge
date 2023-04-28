@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Sat.Recruitment.Common;
-using Sat.Recruitment.Core.Abstract;
+using Sat.Recruitment.InfraEstructure.Models.Domain.Entities.Users;
 
 namespace Sat.Recruitment.InfraEstructure.DataContext
 {
     public sealed class UserRepository : IUserRepository
     {
         private readonly ILogger<UserRepository> _logger;
-        private readonly List<User> users = new();
+        private static readonly List<User> users = new();
         private readonly ILoadUsers _loadUsers;
 
         public UserRepository(ILoadUsers loadUsers, ILogger<UserRepository> logger)
@@ -35,7 +35,7 @@ namespace Sat.Recruitment.InfraEstructure.DataContext
 
                     if (!string.IsNullOrWhiteSpace(strUserType))
                     {
-                        _= Enum.TryParse(strUserType, out userType);
+                        _ = Enum.TryParse(strUserType, out userType);
                     }
 
                     var strMoney = attribute[5] ?? "0";
@@ -55,34 +55,34 @@ namespace Sat.Recruitment.InfraEstructure.DataContext
             }
         }
 
-        public Task<List<User>> GetAll()
+        public List<User> GetAll()
         {
-            return Task.FromResult(users);
+            return users;
         }
 
-        public async Task<User> Create(User user)
+        public User Create(User user)
         {
             users.Add(user);
 
-            return await Task.FromResult(user);
+            return user;
         }
 
-        public async Task<User?> FindBy(string name, string address)
+        public User? FindBy(string name, string address)
         {
             var _user = users.FirstOrDefault(u => u.Name == name && u.Address == address);
-            return await Task.FromResult(_user);
+            return _user;
         }
 
-        public async Task<User?> FindByEmail(string email)
+        public User? FindByEmail(string email)
         {
             var _user = users.FirstOrDefault(u => u.Email == email);
-            return await Task.FromResult(_user);
+            return _user;
         }
 
-        public async Task<User?> FindByPhone(string phone)
+        public User? FindByPhone(string phone)
         {
             var _user = users.FirstOrDefault(u => u.Phone == phone);
-            return await Task.FromResult(_user);
+            return _user;
         }
     }
 }
